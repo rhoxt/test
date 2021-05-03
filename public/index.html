@@ -1,26 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="module" src="./logic.js"></script>
-    <script async src="./index.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-    <title>Document</title>
-</head>
-<body>
-    HALLO WELT!! testest
-    <div id="app">
-        {{ message }}
-    </div>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="module" src="./logic.js"></script>
+        <script defer src="./index.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <link rel="stylesheet" href="./index.css">
+        <title>BEERPONG</title>
+    </head>
+    <body>
+        HALLO WELT!! testest
+        <div id="app">
+            {{ message }}
+        </div>
 
-    <div id="app-2">
-        <span v-bind:title="message">
-        Hover your mouse over me for a few seconds
-        to see my dynamically bound title!
-        </span>
-    </div>
-</body>
-
+        <div id="app-2">
+            <span v-bind:title="message">
+                Hover your mouse over me for a few seconds
+                to see my dynamically bound title!
+            </span>
+        </div>
+        <!-- CAN BE REMOVED -->
+        <div id="test">
+            <div>
+                <input id="date" type="date">
+                <div>
+                    <input id="player1" type="text" placeholder="Player 1">
+                    <input id="scorePlayer1" type="number" placeholder="Score Player 1">
+                </div>
+                <div>
+                    <input id="player2" type="text" placeholder="Player 2">
+                    <input id="scorePlayer2" type="number" placeholder="Score Player 2">
+                </div>
+            </div>
+            <div>
+                <button id="addGame">AddGame</button>
+                <button id="fetchGames">fetchGames</button>
+            </div>
+        </div>
+    </body>
 </html>
