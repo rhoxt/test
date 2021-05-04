@@ -6,7 +6,12 @@ var app = new Vue({
     fields: [
       {
         key: 'date',
-        sortable: true
+        sortable: true,
+        formatter: element => {
+          var oDate = new Date(element)
+          return oDate.getDate() + "." +oDate.getMonth() + "." +oDate.getFullYear();
+        }
+
       },
       {
         key: 'team1player1',
@@ -40,12 +45,5 @@ var app = new Vue({
     team2player2: "",
     team1score: "",
     team2score: "",
-  }
-})
-
-var app2 = new Vue({
-  el: '#app-2',
-  data: {
-    message: 'You loaded this page on ' + new Date().toLocaleString()
   }
 })

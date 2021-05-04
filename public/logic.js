@@ -38,8 +38,6 @@ function onFetchGames (data) {
         delete element._id;
         delete element.__v;
         element.result = element.team1score + " - " +element.team2score;
-        var oMilliseconds = new Date(element.date)
-        element.date = oMilliseconds.getDate() + "." +oMilliseconds.getMonth() + "." +oMilliseconds.getFullYear();
     });
 
     app.items = data;
