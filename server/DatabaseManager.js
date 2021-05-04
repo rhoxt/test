@@ -10,6 +10,7 @@ const { Schema } = mongoose;
 
 class _DatabaseManager {
     connect () {
+        console.log(process.env.DB_URL);
         mongoose.connect(process.env.DB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
             .then(() => {
                 globalThis.console.log('Database connected');
@@ -23,10 +24,12 @@ class _DatabaseManager {
     loadModel () {
         const Games = new Schema({
             date: Number,
-            player1: String,
-            player2: String,
-            scorePlayer1: Number,
-            scorePlayer2: Number,
+            team1player1: String,
+            team1player2: String,
+            team1score: Number,
+            team2player1: String,
+            team2player2: String,
+            team2score: Number
         });
         this.games = mongoose.model('Games', Games);
     }

@@ -5,7 +5,7 @@ const WebSocket = require('ws');
 
 const { UserManager } = require('./UserManager.js');
 
-const port = parseInt(process.env.PORT, 10) || 8080;
+const port = parseInt(process.env.PORT, 10) || 6969;
 const host = process.env.PORT ? '0.0.0.0' : 'localhost';
 
 const publicPath = path.join(__dirname, '../public');

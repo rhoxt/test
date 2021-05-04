@@ -11,7 +11,7 @@ async function onFetchGames (ws, data, userId) {
 
     const games = await DatabaseManager.fetchGames();
 
-    send(ws, "fetchGames", games);
+    send(ws, "fetchGamesResult", games);
 }
 
 async function onAddGame (ws, data, userId) {
@@ -19,7 +19,7 @@ async function onAddGame (ws, data, userId) {
     // we might add some validation or default values
     await DatabaseManager.addGame(data);
 
-    send(ws, "addGame", {});
+    send(ws, "addGameResult", {});
 }
 
 module.exports = {

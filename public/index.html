@@ -9,36 +9,58 @@
         <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
         <link rel="stylesheet" href="./index.css">
         <title>BEERPONG</title>
+
+        <!-- Load required Bootstrap and BootstrapVue CSS -->
+        <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+        <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+
+        <!-- Load polyfills to support older browsers -->
+        <script src="//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
+
+        <!-- Load Vue followed by BootstrapVue -->
+        <script src="//unpkg.com/vue@latest/dist/vue.min.js"></script>
+        <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
+
+        <!-- Load the following for BootstrapVueIcons support -->
+        <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue-icons.min.js"></script>
+
+        <!--popper. falls mal dropdown-->
+        <script src="//unpkg.com/@popperjs/core@2"></script>
+
     </head>
     <body>
-        HALLO WELT!! testest
         <div id="app">
-            {{ message }}
-        </div>
+            <template>
+                <div>
+                  <b-table sticky-header = "true" striped hover :items="items" :fields="fields"></b-table>
+                </div>
+            </template>
 
-        <div id="app-2">
-            <span v-bind:title="message">
-                Hover your mouse over me for a few seconds
-                to see my dynamically bound title!
-            </span>
-        </div>
         <!-- CAN BE REMOVED -->
-        <div id="test">
-            <div>
-                <input id="date" type="date">
-                <div>
-                    <input id="player1" type="text" placeholder="Player 1">
-                    <input id="scorePlayer1" type="number" placeholder="Score Player 1">
-                </div>
-                <div>
-                    <input id="player2" type="text" placeholder="Player 2">
-                    <input id="scorePlayer2" type="number" placeholder="Score Player 2">
-                </div>
-            </div>
-            <div>
-                <button id="addGame">AddGame</button>
-                <button id="fetchGames">fetchGames</button>
-            </div>
+
+        <template>
+            <b-container>
+                <b-row>
+                    <b-col>
+                        <label for="team1player1">Team 1:</label>
+                        <b-form-input id="team1player1" v-model="team1player1" placeholder="Enter your name"></b-form-input>
+                        <b-form-input id="team1player2" v-model="team1player2" placeholder="Enter your name"></b-form-input>
+                        <b-form-input id="team1score" type="number" v-model="team1score" placeholder="Becher übrig Team 1"></b-form-input>
+                    </b-col>
+                    <b-col>
+                        <label for="team2player1">Team 2:</label>
+                        <b-form-input id="team2player1" v-model="team2player1" placeholder="Enter your name"></b-form-input>
+                        <b-form-input id="team2player2" v-model="team2player2" placeholder="Enter your name"></b-form-input>
+                        <b-form-input id="team2score" type="number" v-model="team2score" placeholder="Becher übrig Team 2"></b-form-input>
+                    </b-col>
+                </b-row>
+            </b-container>
+          </template>
+
+        <div>
+            <button id="addGame">AddGame</button>
         </div>
+        </div>
+    </div>
     </body>
 </html>
