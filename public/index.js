@@ -51,6 +51,4 @@ var app = new Vue({
   }
 })
 
-function playerInputFormatter (value) {
-return "BIER"
-}
+Vue.component('v-select', VueSelect.VueSelect);

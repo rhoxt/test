@@ -27,6 +27,10 @@
         <!--popper. falls mal dropdown-->
         <script src="//unpkg.com/@popperjs/core@2"></script>
 
+        <!-- use the latest vue-select release -->
+        <script src="https://unpkg.com/vue-select@latest"></script>
+        <link rel="stylesheet" href="https://unpkg.com/vue-select@latest/dist/vue-select.css">
+
     </head>
     <body>
         <div id="app">
@@ -42,25 +46,16 @@
                 <b-row>
                     <b-col>
                         <label for="team1player1">Team 1:</label>
-
-                        <b-form-input list="my-list-id" v-model="team1player1"></b-form-input>
-
-                        <b-datalist id="my-list-id" options="players">
-                            <option :value = "player.nickName" v-for="player in players">{{player.firstName + " " +player.lastName + " " + player.nickName}}</option>
-                        </b-datalist>
-
-                        <b-form-input list="my-list-id2" v-model="team1player2"></b-form-input>
-
-                        <b-datalist id="my-list-id2" options="players">
-                            <option  :value = "player.nickName" v-for="player in players">{{player.firstName + " " +player.lastName + " " + player.nickName}}</option>
-                        </b-datalist>
+                        <v-select id="team1player1" v-model="team1player1" label="combined" key="nickName" :options="players"></v-select>
+                        <v-select id="team1player2" v-model="team1player2" label="combined" key="nickName" :options="players"></v-select>
 
                         <b-form-input id="team1score" type="number" v-model="team1score" placeholder="Becher übrig Team 1"></b-form-input>
                     </b-col>
                     <b-col>
                         <label for="team2player1">Team 2:</label>
-                        <b-form-input id="team2player1a" v-model="team2player1" placeholder="Player 1"></b-form-input>
-                        <b-form-input id="team2player2a" v-model="team2player2" placeholder="Player 2"></b-form-input>
+                        <v-select id="team2player1" v-model="team2player1" label="combined" key="nickName" :options="players"></v-select>
+                        <v-select id="team2player2" v-model="team2player2" label="combined" key="nickName" :options="players"></v-select>
+
                         <b-form-input id="team2score" type="number" v-model="team2score" placeholder="Becher übrig Team 2"></b-form-input>
                     </b-col>
                 </b-row>

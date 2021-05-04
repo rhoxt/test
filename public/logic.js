@@ -20,13 +20,18 @@ openSocket().then(() => {
 });
 
 function addGame () {
+    var team1player1 = app.team1player1.nickName;
+    var team1player2 = app.team1player2.nickName;
+    var team2player1 = app.team2player1.nickName;
+    var team2player2 = app.team2player2.nickName;
+
     const data = {
         date: new Date(Date.now()).getTime(),
-        team1player1:  app.team1player1 || "team1player1",
-        team1player2: app.team1player2 || "team1player2",
+        team1player1:  team1player1 || "team1player1",
+        team1player2: team1player2 || "team1player2",
         team1score: app.team1score || 0,
-        team2player1: app.team2player1 || "team2player1",
-        team2player2: app.team2player2|| "team2player2",
+        team2player1: team2player1 || "team2player1",
+        team2player2: team2player2|| "team2player2",
         team2score: app.team2score || 0,
     };
 
@@ -83,6 +88,10 @@ function fetchPlayers () {
 
 function onFetchPlayers (data) {
     console.log("recieved some players", data);
+
+    data.forEach(element => {
+        element.combined = element.firstName + " " + element.lastName + " " + element.nickName
+    })
 
     app.players = data;
 }
