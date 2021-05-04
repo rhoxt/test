@@ -5,19 +5,28 @@ openSocket().then(() => {
     const addGameBtn = document.querySelector('#addGame');
     addGameBtn.addEventListener("click", addGame);
 
+    const addPlayerBtn = document.querySelector('#addPlayer');
+    addPlayerBtn.addEventListener("click", addPlayer);
+
     addEventListener("fetchGamesResult", onFetchGames)
 
+    const fetchPlayersBtn = document.querySelector('#fetchPlayers');
+    fetchPlayersBtn.addEventListener("click", fetchPlayers);
+
+    addEventListener("fetchPlayersResult", onFetchPlayers)
+
     fetchGames();
+    fetchPlayers();
 });
 
 function addGame () {
-       const data = {
+    const data = {
         date: new Date(Date.now()).getTime(),
-        team1player1: app.team1player1 || "team1player1",
+        team1player1:  app.team1player1 || "team1player1",
         team1player2: app.team1player2 || "team1player2",
         team1score: app.team1score || 0,
         team2player1: app.team2player1 || "team2player1",
-        team2player2: app.team2player2 || "team2player2",
+        team2player2: app.team2player2|| "team2player2",
         team2score: app.team2score || 0,
     };
 
@@ -25,6 +34,19 @@ function addGame () {
 
     send("addGame", data);
     addEventListener("addGameResult", onAddGame)
+}
+
+function addPlayer () {
+    const data = {
+        firstName: app.newPlayerFirstName || "",
+        lastName: app.newPlayerLastName || "",
+        nickName: app.newPlayerNickName || ""
+    };
+
+    console.log(data);
+
+    send("addPlayer", data);
+    addEventListener("addPlayerResult", onAddPlayer)
 }
 
 function fetchGames () {
@@ -48,4 +70,19 @@ function onAddGame (data) {
     removeEventListener("addGame", onAddGame)
 
     fetchGames();
+}
+
+function onAddPlayer (data) {
+    console.log("addPlayer successful", data);
+    removeEventListener("addPlayer", onAddPlayer)
+}
+
+function fetchPlayers () {
+    send("fetchPlayers", {});
+}
+
+function onFetchPlayers (data) {
+    console.log("recieved some players", data);
+
+    app.players = data;
 }

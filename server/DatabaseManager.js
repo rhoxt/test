@@ -32,6 +32,13 @@ class _DatabaseManager {
             team2score: Number
         });
         this.games = mongoose.model('Games', Games);
+
+        const Players = new Schema({
+            firstName: String,
+            lastName: String,
+            nickName: String
+        });
+        this.players = mongoose.model('Players', Players);
     }
 
     addGame (data) {
@@ -47,6 +54,21 @@ class _DatabaseManager {
             return Promise.resolve([]);
         }
         return this.games.find({});
+    }
+
+    addPlayer (data) {
+        if (!this.players) {
+            return Promise.reject();
+        }
+
+        return this.players.create(data);
+    }
+
+    fetchPlayers () {
+        if (!this.players) {
+            return Promise.resolve([]);
+        }
+        return this.players.find({});
     }
 }
 

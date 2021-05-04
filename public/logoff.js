@@ -1,7 +1,7 @@
 import { ping } from "./socket.js";
 import { Timer } from "./Timer.js";
 
-const LOGOFF_TIMEOUT = 60 * 5; // keep websockets atleast 5 mins alive
+const LOGOFF_TIMEOUT = 60 * 300; // keep websockets atleast 300 mins alive
 let shouldLogoff = false;
 let logoffDone = false;
 

@@ -1,7 +1,6 @@
 var app = new Vue({
   el: '#app',
   data: {
-    message: 'Hello Vue!',
     items: [],
     fields: [
       {
@@ -45,5 +44,13 @@ var app = new Vue({
     team2player2: "",
     team1score: "",
     team2score: "",
+    newPlayerFirstName: "",
+    newPlayerLastName: "",
+    newPlayerNickName: "",
+    players: [],
   }
 })
+
+function playerInputFormatter (value) {
+return "BIER"
+}

@@ -36,30 +36,60 @@
                 </div>
             </template>
 
-        <!-- CAN BE REMOVED -->
 
         <template>
             <b-container>
                 <b-row>
                     <b-col>
                         <label for="team1player1">Team 1:</label>
-                        <b-form-input id="team1player1" v-model="team1player1" placeholder="Enter your name"></b-form-input>
-                        <b-form-input id="team1player2" v-model="team1player2" placeholder="Enter your name"></b-form-input>
+
+                        <b-form-input list="my-list-id" v-model="team1player1"></b-form-input>
+
+                        <b-datalist id="my-list-id" options="players">
+                            <option :value = "player.nickName" v-for="player in players">{{player.firstName + " " +player.lastName + " " + player.nickName}}</option>
+                        </b-datalist>
+
+                        <b-form-input list="my-list-id2" v-model="team1player2"></b-form-input>
+
+                        <b-datalist id="my-list-id2" options="players">
+                            <option  :value = "player.nickName" v-for="player in players">{{player.firstName + " " +player.lastName + " " + player.nickName}}</option>
+                        </b-datalist>
+
                         <b-form-input id="team1score" type="number" v-model="team1score" placeholder="Becher übrig Team 1"></b-form-input>
                     </b-col>
                     <b-col>
                         <label for="team2player1">Team 2:</label>
-                        <b-form-input id="team2player1" v-model="team2player1" placeholder="Enter your name"></b-form-input>
-                        <b-form-input id="team2player2" v-model="team2player2" placeholder="Enter your name"></b-form-input>
+                        <b-form-input id="team2player1a" v-model="team2player1" placeholder="Player 1"></b-form-input>
+                        <b-form-input id="team2player2a" v-model="team2player2" placeholder="Player 2"></b-form-input>
                         <b-form-input id="team2score" type="number" v-model="team2score" placeholder="Becher übrig Team 2"></b-form-input>
                     </b-col>
                 </b-row>
+                <b-row>
+                    <b-col>
+                        <button id="addGame">AddGame</button>
+                    </b-col>
+                </b-row>
             </b-container>
-          </template>
 
-        <div>
-            <button id="addGame">AddGame</button>
-        </div>
+            <b-container>
+                <b-row>
+                    <b-col>
+                        <label for="newPlayerFirst">New Player</label>
+                        <b-form-input id="newPlayerFirst" v-model="newPlayerFirstName" placeholder="First name"></b-form-input>
+                        <b-form-input id="newPlayerLast" v-model="newPlayerLastName" placeholder="Last name"></b-form-input>
+                        <b-form-input id="newPlayerNickName" v-model="newPlayerNickName" placeholder="Nickname"></b-form-input>
+                    </b-col>
+                </b-row>
+                    <b-row>
+                        <b-col>
+                            <button id="addPlayer">Add Player</button>
+                        </b-col>
+                        <b-col>
+                            <button id="fetchPlayers">fetch Players</button>
+                        </b-col>
+                    </b-row>
+            </b-container>
+        </template>
         </div>
     </div>
     </body>
