@@ -48,6 +48,17 @@ var app = new Vue({
     newPlayerLastName: "",
     newPlayerNickName: "",
     players: [],
+  },
+
+  methods: {
+    makeToast(title, message, variant = null, append = null) {
+      this.$bvToast.toast(message, {
+        autoHideDelay: 5000,
+        appendToast: append,
+        variant: variant,
+        title: title
+      })
+    }
   }
 })
 

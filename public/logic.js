@@ -9,13 +9,6 @@ openSocket().then(() => {
     addPlayerBtn.addEventListener("click", addPlayer);
 
     addEventListener("fetchGamesResult", onFetchGames)
-    addEventListener("fetchGamesWithPlayersResult", onFetchGamesWithPlayers)
-
-    const fetchPlayersBtn = document.querySelector('#fetchPlayers');
-    fetchPlayersBtn.addEventListener("click", fetchPlayers);
-
-    const fetchGamesWithPlayersBtn = document.querySelector('#fetchGamesWithPlayers');
-    fetchGamesWithPlayersBtn.addEventListener("click", fetchGamesWithPlayers);
 
     addEventListener("fetchPlayersResult", onFetchPlayers)
 
@@ -91,20 +84,19 @@ function onFetchGames (data) {
     app.items = data;
 }
 
-function onFetchGamesWithPlayers (data) {
-    console.log("recieved some games with players", data);
-}
-
 function onAddGame (data) {
     console.log("addGame successful", data);
     removeEventListener("addGame", onAddGame)
 
+    app.makeToast("Spiel hinzugefügt", data.team1score + " - " + data.team2score, "success")
     fetchGames();
 }
 
 function onAddPlayer (data) {
     console.log("addPlayer successful", data);
     removeEventListener("addPlayer", onAddPlayer)
+    app.makeToast("Spieler hinzugefügt", data.firstName + " " +data.lastName + " " + data.nickName, "success")
+    fetchPlayers()
 }
 
 function fetchPlayers () {
@@ -115,7 +107,7 @@ function onFetchPlayers (data) {
     console.log("recieved some players", data);
 
     data.forEach(element => {
-        element.combined = element.firstName + " " + element.lastName + " " + element.nickName + " " +element._id
+        element.combined = element.firstName + " " + element.lastName + " " + element.nickName;
     })
 
     app.players = data;

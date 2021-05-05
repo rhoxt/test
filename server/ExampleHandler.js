@@ -20,9 +20,9 @@ async function onFetchGames (ws, data, userId) {
 async function onAddGame (ws, data, userId) {
     console.log(`user ${userId} is trying to add a game`);
     // we might add some validation or default values
-    await DatabaseManager.addGame(data);
+    const returnedGame = await DatabaseManager.addGame(data);
 
-    send(ws, "addGameResult", {});
+    send(ws, "addGameResult", returnedGame);
 }
 
 async function onFetchPlayers (ws, data, userId) {
@@ -36,9 +36,9 @@ async function onFetchPlayers (ws, data, userId) {
 async function onAddPlayer (ws, data, userId) {
     console.log(`user ${userId} is trying to add a player`);
     // we might add some validation or default values
-    await DatabaseManager.addPlayer(data);
+    const returnedPlayer = await DatabaseManager.addPlayer(data);
 
-    send(ws, "addPlayerResult", {});
+    send(ws, "addPlayerResult", returnedPlayer);
 }
 
 module.exports = {
