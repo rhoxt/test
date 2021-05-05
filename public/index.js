@@ -1,4 +1,25 @@
-var app = new Vue({
+import {newPlayer} from "./Components/newPlayer.js";
+import {newGame} from "./Components/newGame.js";
+
+// 2. Define some routes
+// Each route should map to a component. The "component" can
+// either be an actual component constructor created via
+// `Vue.extend()`, or just a component options object.
+// We'll talk about nested routes later.
+const routes = [
+  { path: '/newPlayer', component: newPlayer },
+  { path: '/newGame', component: newGame }
+]
+
+// 3. Create the router instance and pass the `routes` option
+// You can pass in additional options here, but let's
+// keep it simple for now.
+const router = new VueRouter({
+  routes // short for `routes: routes`
+})
+
+export var app = new Vue({
+  router,
   el: '#app',
   data: {
     items: [],
@@ -37,17 +58,7 @@ var app = new Vue({
         sortable: false,
         label: "Ergebnis"
       }
-    ],
-    team1player1: "",
-    team1player2: "",
-    team2player1: "",
-    team2player2: "",
-    team1score: "",
-    team2score: "",
-    newPlayerFirstName: "",
-    newPlayerLastName: "",
-    newPlayerNickName: "",
-    players: [],
+    ]
   },
 
   methods: {
@@ -60,6 +71,12 @@ var app = new Vue({
       })
     }
   }
-})
+}).$mount('#app')
 
 Vue.component('v-select', VueSelect.VueSelect);
+
+
+
+
+
+

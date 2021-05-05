@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script type="module" src="./logic.js"></script>
-        <script defer src="./index.js"></script>
+        <script type="module" src="./index.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
         <link rel="stylesheet" href="./index.css">
         <title>BEERPONG</title>
@@ -31,6 +31,11 @@
         <script src="https://unpkg.com/vue-select@latest"></script>
         <link rel="stylesheet" href="https://unpkg.com/vue-select@latest/dist/vue-select.css">
 
+        <script src="//unpkg.com/vue-router/dist/vue-router.js"></script>
+
+        <script type="module" src="../Components/buttonCounter.js"></script>
+        <script type="module" src="../Components/newPlayer.js"></script>
+
     </head>
     <body>
         <div id="app">
@@ -39,50 +44,13 @@
                   <b-table sort-by = "date" sort-desc ="true" sticky-header = "true" striped hover :items="items" :fields="fields"></b-table>
                 </div>
             </template>
-
-
-        <template>
-            <b-container>
-                <b-row>
-                    <b-col>
-                        <label for="team1player1">Team 1:</label>
-                        <v-select id="team1player1" v-model="team1player1" label="combined" key="_id" :options="players"></v-select>
-                        <v-select id="team1player2" v-model="team1player2" label="combined" key="_id" :options="players"></v-select>
-
-                        <b-form-input id="team1score" type="number" v-model="team1score" placeholder="Becher übrig Team 1"></b-form-input>
-                    </b-col>
-                    <b-col>
-                        <label for="team2player1">Team 2:</label>
-                        <v-select id="team2player1" v-model="team2player1" label="combined" key="_id" :options="players"></v-select>
-                        <v-select id="team2player2" v-model="team2player2" label="combined" key="_id" :options="players"></v-select>
-
-                        <b-form-input id="team2score" type="number" v-model="team2score" placeholder="Becher übrig Team 2"></b-form-input>
-                    </b-col>
-                </b-row>
-                <b-row>
-                    <b-col>
-                        <button id="addGame">AddGame</button>
-                    </b-col>
-                </b-row>
-            </b-container>
-
-            <b-container>
-                <b-row>
-                    <b-col>
-                        <label for="newPlayerFirst">New Player</label>
-                        <b-form-input id="newPlayerFirst" v-model="newPlayerFirstName" placeholder="First name"></b-form-input>
-                        <b-form-input id="newPlayerLast" v-model="newPlayerLastName" placeholder="Last name"></b-form-input>
-                        <b-form-input id="newPlayerNickName" v-model="newPlayerNickName" placeholder="Nickname"></b-form-input>
-                    </b-col>
-                </b-row>
-                    <b-row>
-                        <b-col>
-                            <button id="addPlayer">Add Player</button>
-                        </b-col>
-                    </b-row>
-            </b-container>
-        </template>
-        </div>
+        <router-link to="/newPlayer">Spieler hinzufügen</router-link>
+        <router-link to="/newGame">Spiel hinzufügen</router-link>
+        <router-view></router-view>
     </div>
+
+
+
     </body>
+
 </html>
