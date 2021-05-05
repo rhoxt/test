@@ -1,5 +1,5 @@
 const { DatabaseManager } = require("./DatabaseManager.js");
-const { registerMessageHandler, send } = require("./socket.js");
+const { registerMessageHandler, send, publish } = require("./socket.js");
 
 function startListen () {
     registerMessageHandler("fetchGames", onFetchGames);
@@ -22,7 +22,8 @@ async function onAddGame (ws, data, userId) {
     // we might add some validation or default values
     const returnedGame = await DatabaseManager.addGame(data);
 
-    send(ws, "addGameResult", returnedGame);
+    // send(ws, "addGameResult", returnedGame);
+    publish("all", "addGameResult", returnedGame);
 }
 
 async function onFetchPlayers (ws, data, userId) {
@@ -38,7 +39,8 @@ async function onAddPlayer (ws, data, userId) {
     // we might add some validation or default values
     const returnedPlayer = await DatabaseManager.addPlayer(data);
 
-    send(ws, "addPlayerResult", returnedPlayer);
+    // send(ws, "addPlayerResult", returnedPlayer);
+    publish("all", "addPlayerResult", returnedPlayer);
 }
 
 module.exports = {

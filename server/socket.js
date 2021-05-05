@@ -4,6 +4,7 @@ const express = require('express');
 const WebSocket = require('ws');
 
 const { UserManager } = require('./UserManager.js');
+const { TopicManager } = require('./TopicManager.js');
 
 const port = parseInt(process.env.PORT, 10) || 6969;
 const host = process.env.PORT ? '0.0.0.0' : 'localhost';
@@ -49,6 +50,38 @@ function send (ws, channel, data) {
     ws.send(message);
 }
 
+function subscribe (ws, topic) {
+    try {
+        TopicManager.subscribe(ws, topic);
+    } catch (err) {
+        globalThis.console.error(`subscribe failed: ${topic}`);
+    }
+}
+
+function unsubscribe (ws, topic) {
+    try {
+        TopicManager.unsubscribe(ws, topic);
+    } catch (err) {
+        globalThis.console.error(`unsubscribe failed: ${topic}`);
+    }
+}
+
+function unsubscribeAll (ws) {
+    try {
+        TopicManager.unsubscribeAll(ws);
+    } catch (err) {
+        globalThis.console.error(`unsubscribeAll failed: ${ws.id}`);
+    }
+}
+
+function publish (topic, channel, data) {
+    const message = JSON.stringify({
+        channel,
+        data,
+    });
+    TopicManager.publish(topic, message);
+}
+
 /**
  * Parses the incoming data
  * @param {string} data
@@ -77,6 +110,7 @@ function parseMessage (data) {
 function handleOpen (ws) {
     globalThis.console.log('WebSocket opens');
     ws.id = UserManager.addUser();
+    subscribe(ws, "all");
     send(ws, 'userId', {
         id: ws.id,
     });
@@ -112,6 +146,7 @@ function handleClose (userId) {
     const ws = {
         id: userId,
     };
+    unsubscribeAll(ws);
     handleMessage(ws, {
         channel: 'close',
         data: {},
@@ -145,6 +180,9 @@ function startServer () {
 
 module.exports = {
     startServer,
-    send,
     registerMessageHandler,
+    send,
+    subscribe,
+    unsubscribe,
+    publish,
 };
