@@ -1,18 +1,16 @@
 import { app } from "./index.js";
-import { addEventListener, openSocket, send } from "./socket.js";
+import { addEventListener, send } from "./socket.js";
 
 
-openSocket().then(() => {
-    console.log("socket was successfully opened")
+console.log("socket was successfully opened")
 
-    addEventListener("fetchGamesResult", onFetchGames)
-    addEventListener("fetchPlayersResult", onFetchPlayers)
-    addEventListener("addGameResult", fetchGames)
+addEventListener("fetchGamesResult", onFetchGames)
+addEventListener("fetchPlayersResult", onFetchPlayers)
+addEventListener("addGameResult", fetchGames)
 
-    console.log(app);
+console.log(app);
 
-    fetchGames();
-});
+fetchGames();
 
 
 function fetchGames () {

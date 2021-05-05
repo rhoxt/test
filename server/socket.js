@@ -108,8 +108,9 @@ function parseMessage (data) {
  * @returns {string} The id of the new user
  */
 function handleOpen (ws) {
-    globalThis.console.log('WebSocket opens');
     ws.id = UserManager.addUser();
+    globalThis.console.log(`WebSocket opens: ${ws.id}`);
+
     subscribe(ws, "all");
     send(ws, 'userId', {
         id: ws.id,
@@ -152,7 +153,7 @@ function handleClose (userId) {
         data: {},
     });
     UserManager.removeUser(userId);
-    globalThis.console.log('WebSocket closed');
+    globalThis.console.log(`WebSocket closed: ${userId}`);
 }
 
 /**

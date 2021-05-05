@@ -1,5 +1,5 @@
 import { app } from "../index.js";
-import { addEventListener, openSocket, send } from "../socket.js";
+import { addEventListener, send } from "../socket.js";
 
 
 

@@ -1,7 +1,8 @@
 import { logoff, shouldCloseConnection } from "./logoff.js";
+import { Deferred } from "./Deferred.js";
 import { Timer } from "./Timer.js";
 
-let ws = null;
+let wsDeferred = null;
 
 const PING_TIMEOUT = 30;
 const timer = new Timer(PING_TIMEOUT, ping);
@@ -20,6 +21,11 @@ function handleMessage (evt) {
     }
 }
 
+function handleClose () {
+    wsDeferred = null;
+    timer.clear();
+}
+
 export function addEventListener (channel, callback, scope) {
     let handlerMap = handler.get(channel);
     if (handlerMap === undefined) {
@@ -36,9 +42,13 @@ export function removeEventListener (channel, callback) {
     }
 }
 
-export function send (channel, data) {
+export async function send (channel, data) {
     if (channel !== "ping") {
         timer.reset();
+    }
+    const ws = await getSocket();
+    if (!ws) {
+        return;
     }
 
     ws.send(JSON.stringify({
@@ -62,19 +72,33 @@ export function ping (wasReset) {
     }
 }
 
-export function openSocket () {
-    return new Promise((resolve, reject) => {
-        addEventListener("userId", (data) => {
-            userId = data.id;
-        });
-        const host = globalThis.location.origin.replace(/^http/, "ws");
-        ws = new WebSocket(`${host}/ws`);
-        ws.onmessage = handleMessage;
-        ws.onopen = resolve;
-        ws.onclose = logoff;
-        ws.onerror = logoff;
+async function getSocket () {
+    if (!wsDeferred) {
+        openSocket();
+    }
+    try {
+        const ws = await wsDeferred.promise;
+        return ws;
+    } catch (err) {
+        console.error("Websocket could not be opened");
+    }
+}
 
-    }).then(() => {
+function openSocket () {
+    wsDeferred = new Deferred();
+
+    addEventListener("userId", (data) => {
+        userId = data.id;
+    });
+
+    const host = globalThis.location.origin.replace(/^http/, "ws");
+    const ws = new WebSocket(`${host}/ws`);
+
+    ws.onmessage = handleMessage;
+    ws.onopen = () => {
         timer.start();
-    })
+        wsDeferred.resolve(ws)
+    };
+    ws.onclose = handleClose;
+    ws.onerror = handleClose;
 }
