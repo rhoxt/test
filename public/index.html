@@ -46,15 +46,15 @@
                 <b-row>
                     <b-col>
                         <label for="team1player1">Team 1:</label>
-                        <v-select id="team1player1" v-model="team1player1" label="combined" key="nickName" :options="players"></v-select>
-                        <v-select id="team1player2" v-model="team1player2" label="combined" key="nickName" :options="players"></v-select>
+                        <v-select id="team1player1" v-model="team1player1" label="combined" key="_id" :options="players"></v-select>
+                        <v-select id="team1player2" v-model="team1player2" label="combined" key="_id" :options="players"></v-select>
 
                         <b-form-input id="team1score" type="number" v-model="team1score" placeholder="Becher übrig Team 1"></b-form-input>
                     </b-col>
                     <b-col>
                         <label for="team2player1">Team 2:</label>
-                        <v-select id="team2player1" v-model="team2player1" label="combined" key="nickName" :options="players"></v-select>
-                        <v-select id="team2player2" v-model="team2player2" label="combined" key="nickName" :options="players"></v-select>
+                        <v-select id="team2player1" v-model="team2player1" label="combined" key="_id" :options="players"></v-select>
+                        <v-select id="team2player2" v-model="team2player2" label="combined" key="_id" :options="players"></v-select>
 
                         <b-form-input id="team2score" type="number" v-model="team2score" placeholder="Becher übrig Team 2"></b-form-input>
                     </b-col>
@@ -81,6 +81,7 @@
                         </b-col>
                         <b-col>
                             <button id="fetchPlayers">fetch Players</button>
+                            <button id="fetchGamesWithPlayers">fetch Games with players</button>
                         </b-col>
                     </b-row>
             </b-container>

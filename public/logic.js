@@ -9,9 +9,13 @@ openSocket().then(() => {
     addPlayerBtn.addEventListener("click", addPlayer);
 
     addEventListener("fetchGamesResult", onFetchGames)
+    addEventListener("fetchGamesWithPlayersResult", onFetchGamesWithPlayers)
 
     const fetchPlayersBtn = document.querySelector('#fetchPlayers');
     fetchPlayersBtn.addEventListener("click", fetchPlayers);
+
+    const fetchGamesWithPlayersBtn = document.querySelector('#fetchGamesWithPlayers');
+    fetchGamesWithPlayersBtn.addEventListener("click", fetchGamesWithPlayers);
 
     addEventListener("fetchPlayersResult", onFetchPlayers)
 
@@ -20,10 +24,10 @@ openSocket().then(() => {
 });
 
 function addGame () {
-    var team1player1 = app.team1player1.nickName;
-    var team1player2 = app.team1player2.nickName;
-    var team2player1 = app.team2player1.nickName;
-    var team2player2 = app.team2player2.nickName;
+    var team1player1 = app.team1player1._id;
+    var team1player2 = app.team1player2._id;
+    var team2player1 = app.team2player1._id;
+    var team2player2 = app.team2player2._id;
 
     const data = {
         date: new Date(Date.now()).getTime(),
@@ -65,9 +69,17 @@ function onFetchGames (data) {
         delete element._id;
         delete element.__v;
         element.result = element.team1score + " - " +element.team2score;
+        element.team1player1Formatted = element.team1player1.firstName + " " + element.team1player1.lastName + " ";
+        element.team1player2Formatted = element.team1player2.firstName + " " + element.team1player2.lastName + " ";
+        element.team2player1Formatted = element.team2player1.firstName + " " + element.team2player1.lastName + " ";
+        element.team2player2Formatted = element.team2player2.firstName + " " + element.team2player2.lastName + " ";
     });
 
     app.items = data;
+}
+
+function onFetchGamesWithPlayers (data) {
+    console.log("recieved some games with players", data);
 }
 
 function onAddGame (data) {
@@ -90,7 +102,7 @@ function onFetchPlayers (data) {
     console.log("recieved some players", data);
 
     data.forEach(element => {
-        element.combined = element.firstName + " " + element.lastName + " " + element.nickName
+        element.combined = element.firstName + " " + element.lastName + " " + element.nickName + " " +element._id
     })
 
     app.players = data;

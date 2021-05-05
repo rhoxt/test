@@ -3,6 +3,8 @@ const { registerMessageHandler, send } = require("./socket.js");
 
 function startListen () {
     registerMessageHandler("fetchGames", onFetchGames);
+    registerMessageHandler("fetchGamesWithPlayers", onFetchGamesWithPlayers);
+
     registerMessageHandler("addGame", onAddGame);
     registerMessageHandler("fetchPlayers", onFetchPlayers);
     registerMessageHandler("addPlayer", onAddPlayer);
@@ -39,7 +41,6 @@ async function onAddPlayer (ws, data, userId) {
 
     send(ws, "addPlayerResult", {});
 }
-
 
 module.exports = {
     startListen

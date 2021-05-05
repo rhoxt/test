@@ -24,12 +24,12 @@ class _DatabaseManager {
     loadModel () {
         const Games = new Schema({
             date: Number,
-            team1player1: String,
-            team1player2: String,
+            team1player1: { type: Schema.ObjectId, ref: 'Players' },
+            team1player2: { type: Schema.ObjectId, ref: 'Players' },
             team1score: Number,
-            team2player1: String,
-            team2player2: String,
-            team2score: Number
+            team2player1: { type: Schema.ObjectId, ref: 'Players' },
+            team2player2: { type: Schema.ObjectId, ref: 'Players' },
+            team2score: Number,
         });
         this.games = mongoose.model('Games', Games);
 
@@ -46,14 +46,15 @@ class _DatabaseManager {
             return Promise.reject();
         }
 
-        return this.games.create(data);
+        var game = new this.games(data)
+        return game.save()
     }
 
     fetchGames () {
         if (!this.games) {
             return Promise.resolve([]);
         }
-        return this.games.find({});
+        return this.games.find({}).populate("team1player1").populate("team1player2").populate("team2player1").populate("team2player2");
     }
 
     addPlayer (data) {
