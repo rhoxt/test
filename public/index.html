@@ -33,19 +33,18 @@
 
         <script src="//unpkg.com/vue-router/dist/vue-router.js"></script>
 
-        <script type="module" src="../Components/buttonCounter.js"></script>
         <script type="module" src="../Components/newPlayer.js"></script>
+        <script type="module" src="../Components/gameOverview.js"></script>
+        <script type="module" src="../Components/playerOverview.js"></script>
 
     </head>
     <body>
         <div id="app">
-            <template>
-                <div>
-                  <b-table sort-by = "date" sort-desc ="true" sticky-header = "true" striped hover :items="items" :fields="fields"></b-table>
-                </div>
-            </template>
+        <game-overview></game-overview>
+
         <router-link to="/newPlayer">Spieler hinzufügen</router-link>
         <router-link to="/newGame">Spiel hinzufügen</router-link>
+        <router-link to="/playerOverview">Spieler Übersicht</router-link>
         <router-view></router-view>
     </div>
 

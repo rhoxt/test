@@ -56,10 +56,10 @@ export const newGame = Vue.component('new-game', {
                 date: Date.now(),
                 team1player1:  team1player1 || "team1player1",
                 team1player2: team1player2 || "team1player2",
-                team1score: app.team1score || 0,
+                team1score: this.team1score || 0,
                 team2player1: team2player1 || "team2player1",
                 team2player2: team2player2|| "team2player2",
-                team2score: app.team2score || 0,
+                team2score: this.team2score || 0,
             };
 
             console.log(data);

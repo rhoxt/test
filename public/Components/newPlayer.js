@@ -1,8 +1,5 @@
 import { app } from "../index.js";
 import { addEventListener, send } from "../socket.js";
-import { fetchPlayers } from "../logic.js";
-
-
 
 export const newPlayer = Vue.component('new-player', {
     data: function () {
@@ -48,10 +45,10 @@ export const newPlayer = Vue.component('new-player', {
             console.log("addPlayer successful", data);
             removeEventListener("addPlayer", this.onAddPlayer, this)
             app.makeToast("Spieler hinzugefügt", data.firstName + " " +data.lastName + " " + data.nickName, "success")
-            fetchPlayers()
         }
     }
 });
+
 
 
 

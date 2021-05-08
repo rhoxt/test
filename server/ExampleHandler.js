@@ -1,5 +1,6 @@
 const { DatabaseManager } = require("./DatabaseManager.js");
 const { registerMessageHandler, send, publish } = require("./socket.js");
+const {addStatsToPlayers} = require("./PlayerHelper.js")
 
 function startListen () {
     registerMessageHandler("fetchGames", onFetchGames);
@@ -7,6 +8,7 @@ function startListen () {
     registerMessageHandler("addGame", onAddGame);
     registerMessageHandler("fetchPlayers", onFetchPlayers);
     registerMessageHandler("addPlayer", onAddPlayer);
+    registerMessageHandler("fetchPlayersWithStats", onFetchPlayersWithStats);
 }
 
 async function onFetchGames (ws, data, userId) {
@@ -42,6 +44,18 @@ async function onAddPlayer (ws, data, userId) {
     // send(ws, "addPlayerResult", returnedPlayer);
     publish("all", "addPlayerResult", returnedPlayer);
 }
+
+async function onFetchPlayersWithStats (ws, data, userId) {
+    console.log(`user ${userId} is trying to fetch players with stats`);
+
+    const aGames = await DatabaseManager.fetchGames();
+    const aPlayers = await DatabaseManager.fetchPlayers();
+
+    var aJsPlayers = addStatsToPlayers(aPlayers, aGames)
+
+    send(ws, "fetchPlayersWithStatsResult", aJsPlayers);
+}
+
 
 module.exports = {
     startListen
